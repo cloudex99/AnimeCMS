@@ -1,6 +1,6 @@
 # AnimeCMS
 
-####A work in progress
+#### A work in progress
 
-###Installation
+### Installation
 clone repo and run "composer install" to install dependencies.
