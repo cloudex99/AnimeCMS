@@ -1,0 +1,18 @@
+{
+    "require": {
+    	"php": ">=7.0.0",
+        "slim/slim": "^3.0",
+        "slim/php-view": "^2.2",
+        "firebase/php-jwt": "^5.0",
+        "mobiledetect/mobiledetectlib": "^2.8"
+    },
+    "autoload": {
+        "classmap": [
+        	"app/controllers/",
+        	"app/models/",
+        	"app/library/",
+        	"app/"
+        ],
+       "files": ["app/library/common.php"]
+    }
+}

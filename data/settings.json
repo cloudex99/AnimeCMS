@@ -1,0 +1,65 @@
+{
+    "admin_username": "admin",
+    "admin_password": "$2y$10$6/DVQsdAKN/OTUTPfQkIK.1kN49stYRLCu.dxgzI/tzE1DuXcbMOm",
+    "home_title": "AnimeCMS",
+    "home_desc": "AnimeCMS",
+    "home_scripts": "controls.js",
+    "url_suffix_sub": "-english-sub",
+    "url_suffix_dub": "-english-dub",
+    "anime": {
+        "title": "{name}",
+        "desc": "",
+        "base_url": "/anime",
+        "scripts": ""
+    },
+    "episode": {
+        "title": "Watch {name} {suffix} Online",
+        "desc": "",
+        "base_url": "/anime/watch",
+        "scripts": ""
+    },
+    "pages": [
+        {
+            "title": "Anime List",
+            "desc": "",
+            "base_url": "/anime-list",
+            "template_file": "anime-list.php",
+            "scripts": ""
+        },
+        {
+            "title": "Ongoing Anime",
+            "desc": "",
+            "base_url": "/ongoing-anime",
+            "template_file": "ongoing.php",
+            "scripts": ""
+        },
+        {
+            "title": "Anime Movies",
+            "desc": "",
+            "base_url": "/anime-movies",
+            "template_file": "movies.php",
+            "scripts": ""
+        },
+        {
+            "title": "Browse Anime Genres",
+            "desc": "",
+            "base_url": "/genres",
+            "template_file": "genres.php",
+            "scripts": "jm.spinner.js,genres.js"
+        },
+        {
+            "title": "Search Anime",
+            "desc": "",
+            "base_url": "/search",
+            "template_file": "search.php",
+            "scripts": ""
+        },
+        {
+            "title": "Article",
+            "desc": "",
+            "base_url": "/articles",
+            "template_file": "article.php",
+            "scripts": ""
+        }
+    ]
+}
