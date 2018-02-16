@@ -2,6 +2,10 @@
 
 <div class="col-sm-9">
 
+    <div class="alert alert-success">
+         <a href="https://github.com/cloudex99/animecms">Download source code from github.</a>
+    </div>
+
     <div class="card">
         <div class="card-header">Latest Episode</div>
         <div class="card-body">

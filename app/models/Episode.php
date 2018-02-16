@@ -276,57 +276,24 @@ class Episode extends Model
     //gets the latest episodes. subbed or dubbed
     public static function latest($type = 'dubbed', $limit = 100){
         $key = "episodes:latest:$limit";
-        $list['subbed'] = [];
-        $list['dubbed'] = [];
-
         $episodes = [];
-
-        if (Episode::exists($key)) {
-            $list = Episode::fetch($key)[$type];
-            foreach ($list as $episode_id) {
-                $episode = Episode::get(['id' => $episode_id]);
-                $episodes[] = $episode;
-            }
-        } else {
+        if(Episode::exists($key)){
+            $list = Episode::fetch($key);
+        }else {
             $url = API_URL."/latest/episodes/$limit";
-            if ($latest = Functions::api_fetch($url)) {
-                foreach ($latest->subbed as $episode) {
-                    $list['subbed'][] = $episode->id;
-                        $episode = new Episode($episode);
-                    if($type === 'subbed') {
-                        $episodes[] = $episode;
-                    }
-                }
-                foreach ($latest->dubbed as $episode) {
-                    $list['dubbed'][] = $episode->id;
-                        $episode = new Episode($episode);
-                    if($type === 'dubbed') {
-                        $episodes[] = $episode;
-                    }
-                }
-
-                Episode::save($key, $list, RECENT_UPDATE_TIME);
-            }
+            $list = Functions::api_fetch($url);
+            Episode::save($key, $list, RECENT_UPDATE_TIME);
         }
-
+        foreach ($list->{$type} as $episode){
+            $episode->type = $type;
+            $episodes[] = new Episode($episode);
+        }
         return $episodes;
     }
 
+    //gets the latest episodes both subbed and dubbed together
     public static function latest_merged($limit = 100){
-
-        $episodes = [];
-        $subbed = Episode::latest('subbed', floor($limit/2));
-        foreach ($subbed as $episode){
-            $episode->type = 'subbed';
-            $episodes[] = $episode;
-        }
-
-        $dubbed = Episode::latest('dubbed', ceil($limit/2));
-        foreach ($dubbed as $episode){
-            $episode->type = 'dubbed';
-            $episodes[] = $episode;
-        }
-
+        $episodes = array_merge(Episode::latest('subbed', floor($limit/2)), Episode::latest('dubbed', ceil($limit/2)));
         usort($episodes, 'date_compare');
         return $episodes;
     }
