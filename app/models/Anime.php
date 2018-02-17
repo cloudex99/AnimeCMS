@@ -304,9 +304,9 @@ class Anime extends Model
 
     public function meta_description(){
         return str_replace(
-            array("{name}", "{synonyms}","{synopsis}","{english}"),
-            array($this->name(), $this->synonyms,$this->synopsis,$this->english),
-            Config::get('anime')['desc']
+            array("{name}", "{synonyms}","{synopsis}","{english}",'"'),
+            array($this->name(), $this->synonyms,$this->synopsis,$this->english,""),
+            Config::get('anime_page_desc')
         );
     }
 

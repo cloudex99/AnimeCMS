@@ -334,8 +334,8 @@ class Episode extends Model
 
     public function meta_description(){
         return str_replace(
-            array("{name}", "{english}", "{suffix}"),
-            array($this->name(), $this->name->english ?? $this->name->default,Functions::getSuffix(true)),
+            array("{name}", "{english}", "{suffix}",'"'),
+            array($this->name(), $this->name->english ?? $this->name->default,Functions::getSuffix(true),''),
             Config::get('episode')['desc']
         );
     }
