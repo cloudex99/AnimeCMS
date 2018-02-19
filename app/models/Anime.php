@@ -289,8 +289,10 @@ class Anime extends Model
 
     //Searches for anime including given genres. use comma separated. action,adventure,comedy
     //Check https://api.animenetwork.net/genre for list of valid genres
-    public static function genre($include)
+    public static function genres($include = null)
     {
+        if(is_null($include))
+            return ["action","adventure","cars","comedy","dementia","demons","drama","ecchi","fantasy","game","harem","historical","horror","josei","kids","magic","martial arts","mecha","military","music","mystery","parody","police","psychological","romance","samurai","school","sci-fi","seinen","shoujo","shoujo ai","shounen","shounen ai","slice of life","space","sports","super power","supernatural","thriller","vampire","yuri"];
         return Anime::query("genre=$include");
     }
 

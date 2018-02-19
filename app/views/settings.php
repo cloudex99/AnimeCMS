@@ -27,7 +27,7 @@
                 */
                 $input = "<input type='text' class='form-control form-control-sm' placeholder='$key' type='$type' name=$key value='$value' $readonly>";
                 if ($key === 'desc') {
-                    $input = "<textarea name=$key class='form-control form-control-sm' placeholder='$key'></textarea>";
+                    $input = "<textarea name=$key class='form-control form-control-sm' placeholder='$key'>$value</textarea>";
                 }
                 echo "<div class='form-group row'>
                     <label for='$key' class='col-sm-2 col-form-label col-form-label-sm'>$label</label>
@@ -74,7 +74,7 @@
                 $name = "pages[$page_key][$key]";
                 $input = "<input name=$name type='text' class='form-control form-control-sm' placeholder='$key' value='$value'>";
                 if ($key === 'desc') {
-                    $input = "<textarea name=$name class='form-control form-control-sm' placeholder='$key'></textarea>";
+                    $input = "<textarea name=$name class='form-control form-control-sm' placeholder='$key'>$value</textarea>";
                 }
                 echo "<div class='form-group row mb-0'>";
                 echo "<label class='col-sm-2 col-form-label col-form-label-sm'>$label</label>";

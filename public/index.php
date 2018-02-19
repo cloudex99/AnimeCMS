@@ -2,8 +2,8 @@
 
 define('TIME_START', microtime(true));
 
-require_once '../app/config/config.php';
-require_once('../vendor/autoload.php');
+require_once __DIR__.'/../app/config/config.php';
+require_once __DIR__.'/../vendor/autoload.php';
 
 Config::init();
 User::init();

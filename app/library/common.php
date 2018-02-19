@@ -65,6 +65,8 @@ function date_compare($a, $b)
 
 function paginate($array, $pageSize = 10, $page = 1)
 {
+    if(empty($array))
+        return [];
     $page = ($page < 1) ? 1 : $page;
     $pages = array_chunk($array, $pageSize);
     return $page > sizeof($pages) ? $pages[sizeof($pages) - 1] : $pages[$page - 1];
