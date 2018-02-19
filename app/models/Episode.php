@@ -224,7 +224,6 @@ class Episode extends Model
                 foreach ($this->videos as $k => $video) {
                     if ($video->host === $host) {
                         Functions::move_to_top($this->videos, $k);
-                        break;
                     }
                 }
             } else {
