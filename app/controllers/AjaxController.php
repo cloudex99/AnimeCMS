@@ -29,31 +29,33 @@ class AjaxController extends Controller
 
         switch ($type) {
             case 'anime_list':
-                $paginate = paginate(Anime::query(), $size, $page);
+                $query = Anime::query();
+                $data = ['total' => count($query), 'data' => paginate($query, $size, $page)];
                 break;
             case 'anime_query':
-                $paginate = paginate(Anime::query($_POST['query']), $size, $page);
+                $query = Anime::query($_POST['query']);
+                $data = ['total' => count($query), 'data' => paginate($query, $size, $page)];
                 break;
             case 'anime_episodes':
-                $paginate = ($order === 'asc') ? paginate(array_reverse(Anime::get(['id' => $_POST['anime_id']])->getEpisodes()), $size, $page) : paginate(Anime::get(['id' => $_POST['anime_id']])->getEpisodes(), $size, $page);
+                $data = ($order === 'asc') ? paginate(array_reverse(Anime::get(['id' => $_POST['anime_id']])->getEpisodes()), $size, $page) : paginate(Anime::get(['id' => $_POST['anime_id']])->getEpisodes(), $size, $page);
                 break;
             case 'anime_subbed':
-                $paginate = paginate(Anime::latest('latest', 'subbed',100), $size, $page);
+                $data = paginate(Anime::latest('latest', 'subbed',100), $size, $page);
                 break;
             case 'anime_dubbed':
-                $paginate = paginate(Anime::latest('latest', 'dubbed',100), $size, $page);
+                $data = paginate(Anime::latest('latest', 'dubbed',100), $size, $page);
                 break;
             case 'episodes_subbed':
-                $paginate = paginate(Episode::latest('subbed', 100), $size, $page);
+                $data = paginate(Episode::latest('subbed', 100), $size, $page);
                 break;
             case 'episodes_dubbed':
-                $paginate = paginate(Episode::latest('dubbed', 100), $size, $page);
+                $data = paginate(Episode::latest('dubbed', 100), $size, $page);
                 break;
             default:
-                $paginate = [];
+                $data = [];
         }
 
-        return $response->withJson($paginate);
+        return $response->withJson($data);
     }
 
 }
