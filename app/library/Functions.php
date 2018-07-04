@@ -166,7 +166,8 @@ abstract class Functions
 
          $options = array(
              'http' => array(
-                 'method' => 'GET'
+                 'method' => 'GET',
+                 'timeout' => 1.0
              ),
          );
 
