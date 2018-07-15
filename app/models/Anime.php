@@ -352,6 +352,13 @@ class Anime extends Model
         return $animes;
     }
 
+    //gets the latest episodes both subbed and dubbed together
+    public static function latest_merged($limit = 100){
+        $latest = array_merge(Anime::latest('latest','dubbed', ceil($limit/2)), Anime::latest('latest','subbed', floor($limit/2)));
+        usort($latest, 'date_compare');
+        return $latest;
+    }
+
     public static function ongoing($dubbed = false){
 
         if($dubbed) {
