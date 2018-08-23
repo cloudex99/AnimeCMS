@@ -8,13 +8,9 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 
-<?php
-if (isset($scripts) && !empty($scripts)) {
-    foreach (explode(',', $scripts) as $script) {
-        echo "<script type='text/javascript' src='/js/$script?v=0.001'></script>";
-    }
-}
-?>
+<?php if(PAGE==='episode' || PAGE==='cartoon_episode'): ?>
+<script type='text/javascript' src="/js/episode.js"></script>
+<?php endif;?>
 
 <footer class="footer">
     <div class="container bg-light text-right">

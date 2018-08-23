@@ -6,6 +6,8 @@
  * Time: 3:27 PM
  */
 
+use \Cloud\Cache;
+
 class AnimeController extends Controller
 {
 

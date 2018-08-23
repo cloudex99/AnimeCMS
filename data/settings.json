@@ -3,63 +3,70 @@
     "admin_password": "$2y$10$6/DVQsdAKN/OTUTPfQkIK.1kN49stYRLCu.dxgzI/tzE1DuXcbMOm",
     "home_title": "AnimeCMS",
     "home_desc": "AnimeCMS",
-    "home_scripts": "controls.js",
     "url_suffix_sub": "-english-sub",
     "url_suffix_dub": "-english-dub",
     "anime": {
         "title": "{name}",
         "desc": "",
-        "base_url": "/anime",
-        "scripts": ""
+        "base_url": "/anime"
     },
     "episode": {
         "title": "Watch {name} {suffix} Online",
         "desc": "",
-        "base_url": "/anime/watch",
-        "scripts": ""
+        "base_url": "/anime/watch"
+    },
+    "cartoon": {
+        "title": "{name}",
+        "desc": "",
+        "base_url": "/cartoon"
+    },
+    "cartoon_episode": {
+        "title": "Watch {name} {suffix} Online",
+        "desc": "",
+        "base_url": "/cartoon/watch"
     },
     "pages": [
         {
             "title": "Anime List",
             "desc": "",
             "base_url": "/anime-list",
-            "template_file": "anime-list.php",
-            "scripts": ""
+            "template_file": "anime-list.php"
+        },
+        {
+            "title": "Cartoons",
+            "desc": "",
+            "base_url": "/browse-cartoons",
+            "template_file": "cartoon-list.php"
         },
         {
             "title": "Ongoing Anime",
             "desc": "",
             "base_url": "/ongoing-anime",
-            "template_file": "ongoing.php",
-            "scripts": ""
+            "template_file": "ongoing.php"
         },
         {
             "title": "Anime Movies",
             "desc": "",
             "base_url": "/anime-movies",
-            "template_file": "movies.php",
-            "scripts": ""
+            "template_file": "movies.php"
         },
         {
             "title": "Browse Anime Genres",
             "desc": "",
             "base_url": "/genres",
-            "template_file": "genres.php",
-            "scripts": "jm.spinner.js,genres.js"
+            "template_file": "genres.php"
         },
         {
             "title": "Search Anime",
             "desc": "",
             "base_url": "/search",
-            "template_file": "search.php",
-            "scripts": ""
+            "template_file": "search.php"
         },
         {
             "title": "Article",
             "desc": "",
             "base_url": "/articles",
-            "template_file": "article.php",
-            "scripts": ""
+            "template_file": "article.php"
         }
     ]
 }

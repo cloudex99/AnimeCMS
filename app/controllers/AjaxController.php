@@ -37,7 +37,7 @@ class AjaxController extends Controller
                 $data = ['total' => count($query), 'data' => paginate($query, $size, $page)];
                 break;
             case 'anime_episodes':
-                $data = ($order === 'asc') ? paginate(array_reverse(Anime::get(['id' => $_POST['anime_id']])->getEpisodes()), $size, $page) : paginate(Anime::get(['id' => $_POST['anime_id']])->getEpisodes(), $size, $page);
+                $data = ($order === 'asc') ? paginate(array_reverse(Cache::fetch(['id' => $_POST['anime_id']])->getEpisodes()), $size, $page) : paginate(Cache::fetch(['id' => $_POST['anime_id']])->getEpisodes(), $size, $page);
                 break;
             case 'anime_subbed':
                 $data = paginate(Anime::latest('latest', 'subbed',100), $size, $page);

@@ -7,6 +7,8 @@
  * Time: 3:48 PM
  */
 
+use \Cloud\Cache;
+
 class Episode extends Model
 {
 
@@ -41,9 +43,9 @@ class Episode extends Model
         $this->next_id = $data->next ?? null;
         $this->previous_id = $data->previous ?? null;
 
-        if(!Episode::exists("episode-id:$this->id") && $save) {
-            Episode::save("episode-slug:$this->slug", "episode-id:$this->id");
-            Episode::save("episode-id:$this->id", $this, DEFAULT_EXPIRE_TIME);
+        if(!Cache::exists("episode-id:$this->id") && $save) {
+            Cache::save("episode-slug:$this->slug", "episode-id:$this->id");
+            Cache::save("episode-id:$this->id", $this, DEFAULT_EXPIRE_TIME);
         }
 
     }
@@ -63,7 +65,7 @@ class Episode extends Model
             return false;
         }
 
-        if(Episode::exists($key)){
+        if(Cache::exists($key)){
             $episode = Episode::fetch($key);
             return $episode;
         }else{
@@ -276,12 +278,12 @@ class Episode extends Model
     public static function latest($type = 'dubbed', $limit = 100){
         $key = "episodes:latest:$limit";
         $episodes = [];
-        if(Episode::exists($key)){
+        if(Cache::exists($key)){
             $list = Episode::fetch($key);
         }else {
             $url = API_URL."/latest/episodes/$limit";
             $list = Functions::api_fetch($url);
-            Episode::save($key, $list, RECENT_UPDATE_TIME);
+            Cache::save($key, $list, RECENT_UPDATE_TIME);
         }
         foreach ($list->{$type} as $episode){
             $episode->type = $type;
@@ -303,7 +305,7 @@ class Episode extends Model
         $episodes = [];
         $episode_ids = [];
 
-        if (Episode::exists($key)) {
+        if (Cache::exists($key)) {
             $episode_ids = Episode::fetch($key);
             foreach ($episode_ids as $episode_id) {
                 $episode = Episode::get(['id' => $episode_id]);
@@ -317,7 +319,7 @@ class Episode extends Model
                     $episode = new Episode($episode);
                     $episodes[] = $episode;
                 }
-                Episode::save($key, $episode_ids, RECENT_UPDATE_TIME);
+                Cache::save($key, $episode_ids, RECENT_UPDATE_TIME);
             }
         }
         return $episodes;

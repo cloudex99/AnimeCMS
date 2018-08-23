@@ -119,16 +119,12 @@ abstract class Functions
                 $id = $_POST['anime'][0];
                 $action = $_POST['anime'][1];
                 if($action == 'created'){
-                    Cache::clearPrefix('list');
+                    Cache::clearPrefix('list:');
                 }elseif ($action == 'updated'){
-                    if($anime = Anime::get(['id' => $id])){
-                        Cache::deleteAnime($id);
-                        Cache::delete("list:status=ongoing");
-                    }
+                    Cache::deleteAnime($id);
+                    Cache::delete("list:status=ongoing");
                 }else{
-                    if($anime = Anime::get(['id' => $id])){
-                        Cache::deleteAnime($id, true);
-                    }
+                    Cache::deleteAnime($id, true);
                 }
                 Anime::query();
             }

@@ -44,7 +44,7 @@ usort($episodes, 'date_compare');
 
 $map1.= '</urlset>';
 $map1 = gzencode($map1, 9);
-$file = fopen('./sitemaps/sitemap1.xml.gz', 'w');
+$file = fopen(__DIR__.'/sitemap1.xml.gz', 'w');
 fwrite($file, $map1);
 fclose($file);
 
@@ -73,7 +73,7 @@ $map2.= '</urlset>';
 $map3.= '</urlset>';
 
 $map2 = gzencode($map2, 9);
-$file = fopen('./sitemaps/sitemap2.xml.gz', 'w');
+$file = fopen(__DIR__.'/sitemap2.xml.gz', 'w');
 fwrite($file, $map2);
 fclose($file);
 
@@ -90,7 +90,7 @@ $mapindex.='<sitemap>
 
 if(!DUBBED_ONLY){
     $map3 = gzencode($map3, 9);
-    $file = fopen('./sitemaps/sitemap3.xml.gz', 'w');
+    $file = fopen(__DIR__.'/sitemap3.xml.gz', 'w');
     fwrite($file, $map3);
     fclose($file);
 
@@ -102,6 +102,6 @@ if(!DUBBED_ONLY){
 
 $mapindex.= '</sitemapindex>';
 $mapindex = gzencode($mapindex, 9);
-$file = fopen('./sitemaps/sitemap.xml.gz', 'w');
+$file = fopen(__DIR__.'/sitemap.xml.gz', 'w');
 fwrite($file, $mapindex);
 fclose($file);

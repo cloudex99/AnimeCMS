@@ -12,6 +12,8 @@
             var code;
             if (host === 'trollvid') {
                 code = "<iframe " + no_disp + " src='//trollvid.net/embed/" + id + "' frameborder='0' allowfullscreen='true' scrolling='no'></iframe>";
+            } else if (host === 'mp4.sh') {
+                code = "<iframe " + no_disp + " src='//trollvid.net/embedc/" + id + "' frameborder='0' allowfullscreen='true' scrolling='no'></iframe>";
             } else if (host === 'mp4upload') {
                 code = "<iframe " + no_disp + " src='//www.mp4upload.com/embed-" + id + ".html' FRAMEBORDER=0 MARGINWIDTH=0 MARGINHEIGHT=0 SCROLLING=NO WIDTH=1280 HEIGHT=720 allowfullscreen></iframe>";
             } else if (host === 'facebook') {

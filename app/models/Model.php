@@ -21,5 +21,4 @@ class Model extends Cache
         return $data;
     }
 
-
 }

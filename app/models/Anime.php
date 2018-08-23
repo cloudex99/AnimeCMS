@@ -7,6 +7,8 @@
  * Time: 3:48 PM
  */
 
+use \Cloud\Cache;
+
 class Anime extends Model
 {
     public $id;
@@ -52,9 +54,9 @@ class Anime extends Model
         @$this->related = $data->related_anime ?: null;
         $this->url = $this->url();
 
-        if (!Anime::exists("anime-id:$this->id")) {
-            Anime::save("anime-slug:$this->slug", "anime-id:$this->id");
-            Anime::save("anime-id:$this->id", $this);
+        if (!Cache::exists("anime-id:$this->id")) {
+            Cache::save("anime-slug:$this->slug", "anime-id:$this->id");
+            Cache::save("anime-id:$this->id", $this);
         }
     }
 
@@ -79,7 +81,7 @@ class Anime extends Model
             return false;
         }
 
-        if (Anime::exists($key)) {
+        if (Cache::exists($key)) {
             $anime = Anime::fetch($key);
             return $anime;
 
@@ -148,7 +150,7 @@ class Anime extends Model
         $episode_ids = [];
         $key = "$this->id:episodes";
 
-        if (Anime::exists($key)) {
+        if (Cache::exists($key)) {
             $episode_ids = Anime::fetch($key);
             foreach ($episode_ids as $episode_id) {
                 $episode = Episode::get(['id' => $episode_id]);
@@ -172,9 +174,9 @@ class Anime extends Model
                     }
                 }
                 if($this->status === 'ongoing'){
-                    Anime::save($key, $episode_ids, DEFAULT_EXPIRE_TIME);
+                    Cache::save($key, $episode_ids, DEFAULT_EXPIRE_TIME);
                 } else {
-                    Anime::save($key, $episode_ids);
+                    Cache::save($key, $episode_ids);
                 }
             }
         }
@@ -219,7 +221,7 @@ class Anime extends Model
             $has_query = true;
         }
 
-        if (Anime::exists($key)) {
+        if (Cache::exists($key)) {
             $id_list = Anime::fetch($key); //retrieve id list from cache
             foreach ($id_list as $id) {
                 if ($anime = Anime::get(['id' => $id])) { //get anime from cache
@@ -242,7 +244,7 @@ class Anime extends Model
                         $anime_list[] = new Anime($data);
                     }
                 }
-                Anime::save($key, $id_list);
+                Cache::save($key, $id_list);
             }
         }
 
@@ -337,12 +339,12 @@ class Anime extends Model
         $animes = [];
 
         $key = "list:latest-anime:$limit";
-        if (Anime::exists($key)) {
+        if (Cache::exists($key)) {
             $list = Anime::fetch($key);
         } else {
             $url = API_URL."/latest/anime/$limit";
             $list = Functions::api_fetch($url);
-            Anime::save($key, $list, RECENT_UPDATE_TIME);
+            Cache::save($key, $list, RECENT_UPDATE_TIME);
         }
 
         foreach ($list->{$kind}->{$type} as $anime){
@@ -366,7 +368,7 @@ class Anime extends Model
             $anime_list = [];
 
             $key = 'list:ongoing-dub';
-            if(Anime::exists($key)){
+            if(Cache::exists($key)){
                 $id_list = Anime::fetch($key);
                 foreach ($id_list as $id){
                     if($anime = Anime::get(['id' => $id])){
@@ -380,7 +382,7 @@ class Anime extends Model
                     $id_list[] = $data->id;
                     $anime_list[] = Anime::get(['id' => $data->id]);
                 }
-                Anime::save($key, $id_list, DEFAULT_EXPIRE_TIME);
+                Cache::save($key, $id_list, DEFAULT_EXPIRE_TIME);
             }
             usort($anime_list, 'compareByName');
             return $anime_list;

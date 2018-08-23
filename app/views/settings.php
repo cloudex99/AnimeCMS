@@ -65,6 +65,32 @@
     }
     ?>
     <hr>
+    <h5 class="my-2">Cartoon Page</h5>
+    <?php
+    foreach ($settings['cartoon'] as $key => $value){
+        $label = ucwords(str_replace(['-','_'],' ', $key));
+        $name = "anime[$key]";
+        $input = "<input name=$name type='text' class='form-control form-control-sm' placeholder='$key' value='$value'>";
+        echo "<div class='form-group row mb-0'>";
+        echo "<label class='col-sm-2 col-form-label col-form-label-sm'>$label</label>";
+        echo "<div class='col-sm-10 ml-auto my-1'>$input</div>";
+        echo "</div>";
+    }
+    ?>
+    <hr>
+    <h5 class="my-2">Cartoon Episode Page</h5>
+    <?php
+    foreach ($settings['cartoon_episode'] as $key => $value){
+        $label = ucwords(str_replace(['-','_'],' ', $key));
+        $name = "episode[$key]";
+        $input = "<input name=$name type='text' class='form-control form-control-sm' placeholder='$key' value='$value'>";
+        echo "<div class='form-group row mb-0'>";
+        echo "<label class='col-sm-2 col-form-label col-form-label-sm'>$label</label>";
+        echo "<div class='col-sm-10 ml-auto my-1'>$input</div>";
+        echo "</div>";
+    }
+    ?>
+    <hr>
     <h5 class="my-2">Other Pages</h5>
     <?php
         foreach ($settings['pages'] as $page_key => $page_options){

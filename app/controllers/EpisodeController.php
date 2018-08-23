@@ -6,6 +6,8 @@
  * Time: 3:27 PM
  */
 
+use \Cloud\Cache;
+
 class EpisodeController extends Controller
 {
     public function get($request, $response, $args)
@@ -13,7 +15,7 @@ class EpisodeController extends Controller
         $slug = $args['slug'];
         $id = Functions::get_id_from_slug($slug);
 
-        if (Cloud\Cache::exists("404:$slug")) {
+        if (Cache::exists("404:$slug")) {
             $response = $this->error404($request, $response, $args);
         }
 
@@ -38,8 +40,8 @@ class EpisodeController extends Controller
             ]);
         } else {
 
-            if (!Cloud\Cache::exists("404:$slug")) {
-                Cloud\Cache::save("404:$slug", true, 3600);
+            if (!Cache::exists("404:$slug")) {
+                Cache::save("404:$slug", true, 3600);
             }
 
             $response = $this->error404($request, $response, $args);
