@@ -35,8 +35,7 @@ class EpisodeController extends Controller
             $this->view->render($response, TEMPLATE_BASE . 'episode.php', [
                 'episode' => $episode,
                 'title' => $episode->page_title(),
-                'description' => $episode->meta_description(),
-                'scripts' => Config::get('episode')['scripts']
+                'description' => $episode->meta_description()
             ]);
         } else {
 

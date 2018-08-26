@@ -25,6 +25,21 @@
     </div>
     <script type="text/javascript">
         var episode_videos = <?php echo json_encode($episode->videos)?>;
+
+        // addEventListener support for IE8
+        function bindEvent(element, eventName, eventHandler) {
+            if (element.addEventListener){
+                element.addEventListener(eventName, eventHandler, false);
+            } else if (element.attachEvent) {
+                element.attachEvent('on' + eventName, eventHandler);
+            }
+        }
+
+        // Listen to message from child window
+        bindEvent(window, 'message', function (e) {
+            console.log(e.data);
+        });
+
     </script>
 </div>
 

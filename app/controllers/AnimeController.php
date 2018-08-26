@@ -21,8 +21,7 @@ class AnimeController extends Controller
             $this->view->render($response, TEMPLATE_BASE . 'anime.php', [
                 'anime' => $anime,
                 'title' => $anime->page_title(),
-                'description' => $anime->meta_description(),
-                'scripts' => Config::get('anime')['scripts']
+                'description' => $anime->meta_description()
             ]);
         } elseif ($anime = Anime::get(['slug' => $slug])) {
             $response = $response->withRedirect($anime->url())->withStatus(301);
