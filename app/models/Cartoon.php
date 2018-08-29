@@ -87,6 +87,9 @@ class Cartoon
         return ucfirst(($this->type == 'tv' ? 'episode' : strtoupper($this->type)));
     }
 
+    public function name(){
+        return $this->title;
+    }
     //Get the episodes of the cartoon and store in cache
     public function getEpisodes()
     {

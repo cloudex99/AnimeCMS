@@ -4,6 +4,7 @@
         <div class="card">
             <div class="card-header"><h1><?=$episode->name()?></h1></div>
 
+            <img src="<?=$episode->image()?>" alt="">
             <div class="card-body">
                 <div class="btn-group mb-1" role="group">
                     <button id="btnGroupDrop1" type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Video Mirrors</button>

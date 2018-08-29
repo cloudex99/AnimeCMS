@@ -9,7 +9,7 @@
     <title><?=@$title?></title>
 
     <!-- Bootstrap CSS & Fontawesome -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <script defer src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script>
 
     <!-- Custom CSS -->
@@ -18,6 +18,7 @@
     <!-- Fake favicon, replace with real one-->
     <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgo=">
 
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 </head>
 <body class="bg-dark">
 
@@ -65,10 +66,12 @@
                     </li>
                 <?php endif;?>
             </ul>
-            <form class="form-inline my-2 my-lg-0" action="/search" method="get">
-                <input class="form-control mr-sm-2" name="term" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            <form id="search_form" class="form-inline my-2 my-lg-0" action="/search" method="get">
+                <input class="form-control mr-sm-2" name="term" type="search" id="search_value" placeholder="Search" aria-label="Search">
+                <button class="btn btn-success btn-sm my-2 my-sm-0 px-1 rounded-0" id="asbtn" type="submit"><i class="fas fa-search"></i> Anime</button>
+                <button class="btn btn-secondary btn-sm my-2 my-sm-0 px-1 rounded-0" id="csbtn" type="submit"><i class="fas fa-search"></i> Cartoon</button>
             </form>
+
         </div>
     </div>
 </nav>

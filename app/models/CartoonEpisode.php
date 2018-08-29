@@ -133,7 +133,7 @@ class CartoonEpisode extends Model
 
     //Episode image, put your own default image, or change sizes. 352x220, 300x170, 160x100, 100x75
     public function image(){
-        $image = '//cdn.animeapi.com/images/3/'.$this->id.'_352x220.jpg';
+        $image = '//cdn.animeapi.com/images/3/'.$this->videos[0]->id.'_352x220.jpg';
         return $image;
     }
     //Episode Url
