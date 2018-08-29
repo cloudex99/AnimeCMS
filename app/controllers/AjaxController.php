@@ -5,7 +5,7 @@
  * Date: 2017-11-19
  * Time: 3:26 PM
  */
-
+use \Cloud\Cache;
 class AjaxController extends Controller
 {
 
@@ -33,11 +33,28 @@ class AjaxController extends Controller
                 $data = ['total' => count($query), 'data' => paginate($query, $size, $page)];
                 break;
             case 'anime_query':
-                $query = Anime::query($_POST['query']);
-                $data = ['total' => count($query), 'data' => paginate($query, $size, $page)];
+                $query = '';
+                if(is_array($_POST['query'])){
+                    foreach ($_POST['query'] as $i => $q){
+                        if($q=='0' || $q == ''){
+                            continue;
+                        }
+                        $query.="$i=$q&";
+                    }
+                } else {
+                    $query = $_POST['query'];
+                }
+
+                $query=rtrim($query,'&');
+                $results = Anime::query($query);
+                if(isset($_POST['letter']) && $_POST['letter']!=='all'){
+                    $results = Anime::letters($results, $_POST['letter']);
+                }
+                $pages = ceil(count($results)/$size);
+                $data = ['results' => paginate($results, $size, $page), 'pages' => $pages, 'query' => $query];
                 break;
             case 'anime_episodes':
-                $data = ($order === 'asc') ? paginate(array_reverse(Cache::fetch(['id' => $_POST['anime_id']])->getEpisodes()), $size, $page) : paginate(Cache::fetch(['id' => $_POST['anime_id']])->getEpisodes(), $size, $page);
+                $data = ($order === 'asc') ? paginate(array_reverse(Cache::fetch($_POST['anime_id'])->getEpisodes()), $size, $page) : paginate(Cache::fetch($_POST['anime_id'])->getEpisodes(), $size, $page);
                 break;
             case 'anime_subbed':
                 $data = paginate(Anime::latest('latest', 'subbed',100), $size, $page);

@@ -7,7 +7,7 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 
 
-if(GetIP() != '***REMOVED***'){
+if(GetIP() != '99.249.184.216'){
     //die('Site Under Construction');
 }
 

@@ -7,10 +7,19 @@
             <div class='card-body'>
                 <ul class='list-inline'>
                     <?php
-                    $list = Anime::search($_GET['term']);
-                    foreach ($list as $i => $anime){
-                        echo "<li class='w-50 d-inline-block'><a href='{$anime->url()}'>{$anime->name()}</a>";
-                    }
+
+                    (function() {
+                        if(isset($_GET['cartoon'])){
+                            $list = Cartoon::search($_GET['term']);
+                        } else {
+                            $list = Anime::search($_GET['term']);
+                        }
+
+                        foreach ($list as $item){
+                            echo "<li class='w-50 d-inline-block'><a href='{$item->url()}'>{$item->name()}</a>";
+                        }
+                    })();
+
                     ?>
                 </ul>
             </div>
