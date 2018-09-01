@@ -69,7 +69,7 @@
     <?php
     foreach ($settings['cartoon'] as $key => $value){
         $label = ucwords(str_replace(['-','_'],' ', $key));
-        $name = "anime[$key]";
+        $name = "cartoon[$key]";
         $input = "<input name=$name type='text' class='form-control form-control-sm' placeholder='$key' value='$value'>";
         echo "<div class='form-group row mb-0'>";
         echo "<label class='col-sm-2 col-form-label col-form-label-sm'>$label</label>";
@@ -82,7 +82,7 @@
     <?php
     foreach ($settings['cartoon_episode'] as $key => $value){
         $label = ucwords(str_replace(['-','_'],' ', $key));
-        $name = "episode[$key]";
+        $name = "cartoon_episode[$key]";
         $input = "<input name=$name type='text' class='form-control form-control-sm' placeholder='$key' value='$value'>";
         echo "<div class='form-group row mb-0'>";
         echo "<label class='col-sm-2 col-form-label col-form-label-sm'>$label</label>";

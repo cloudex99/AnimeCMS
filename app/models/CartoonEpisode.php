@@ -37,7 +37,7 @@ class CartoonEpisode extends Model
         $this->description = $data->description ?? null;
         $this->date = $data->date;
         $this->videos = $data->videos ?? null;
-        $this->image = $data->image;
+        $this->image = $data->image ?? $this->image();
         $this->url = $this->url();
         $this->next_id = $data->next ?? null;
         $this->previous_id = $data->previous ?? null;
@@ -133,9 +133,13 @@ class CartoonEpisode extends Model
 
     //Episode image, put your own default image, or change sizes. 352x220, 300x170, 160x100, 100x75
     public function image(){
-        $image = '//cdn.animeapi.com/images/3/'.$this->videos[0]->id.'_352x220.jpg';
+        if(count($this->videos))
+            $image = '//cdn.animeapi.com/images/3/'.$this->videos[0]->id.'_352x220.jpg';
+        else
+            $image = '//cdn.animeapi.com/images/default.jpg';
         return $image;
     }
+
     //Episode Url
     public function url($suffix = false){
 
