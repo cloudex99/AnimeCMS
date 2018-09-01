@@ -196,7 +196,15 @@ class Anime extends Model
             $this->_reversed = false;
         }
     }
-
+    public static function count(){
+        if (Cache::exists('anime_count')) {
+            $count = Cache::fetch('anime_count');
+        }else{
+            $count = count(Anime::query());
+            Cache::save('anime_count', $count);
+        }
+        return $count;
+    }
     //Gets a list of anime based on a query. Ex: status=ongoing&lang=eng
     //Leave blank for full anime list
     public static function query($query = null, $args = null)

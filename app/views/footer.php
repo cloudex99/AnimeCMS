@@ -11,22 +11,11 @@
     <script type="text/javascript">
         (function ($, document, window) {
             $(document).ready(function () {
-                var sform = $('#search_form');
 
-                $('#csbtn').on('click', function (e) {
-                    e.preventDefault();
-                    sform.attr("action", "/search?cartoon=true&term="+$('#search_value').val());
-                    window.location.href = sform.attr('action');
-                    return false;
-                });
-
-                $("#gcont").click(function(e){
-                    e.stopPropagation();
-                })
             });
         })(jQuery, document, window);
     </script>
-    <script type='text/javascript' src="/js/controls.js?67"></script>
+    <script type='text/javascript' src="/js/controls.js?6172"></script>
     <script type='text/javascript' src="/assets/js/pagination.min.js"></script>
 <footer class="footer">
     <div class="container bg-light text-right">

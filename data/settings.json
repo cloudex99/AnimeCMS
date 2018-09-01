@@ -27,7 +27,7 @@
     },
     "pages": [
         {
-            "title": "Anime List",
+            "title": "Animes",
             "desc": "",
             "base_url": "/anime-list",
             "template_file": "anime-list.php"

@@ -22,7 +22,7 @@ class AjaxController extends Controller
 
     public function paginate($request, $response, $args){
 
-        $type = $_POST['type'] ?? null;
+        $type = $_POST['what'] ?? null;
         $size = $_POST['size'] ?? 10;
         $page = $_POST['page'] ?? 1;
         $order = $_POST['order'] ?? 'desc';
@@ -32,11 +32,11 @@ class AjaxController extends Controller
                 $query = Anime::query();
                 $data = ['total' => count($query), 'data' => paginate($query, $size, $page)];
                 break;
-            case 'anime_query':
+            case 'query':
                 $query = '';
                 if(is_array($_POST['query'])){
                     foreach ($_POST['query'] as $i => $q){
-                        if($q=='0' || $q == ''){
+                        if($q=='0' || $q == '' || $q == null){
                             continue;
                         }
                         $query.="$i=$q&";
@@ -46,12 +46,13 @@ class AjaxController extends Controller
                 }
 
                 $query=rtrim($query,'&');
-                $results = Anime::query($query);
+                $results = $_POST['model']::query($query);
                 if(isset($_POST['letter']) && $_POST['letter']!=='all'){
-                    $results = Anime::letters($results, $_POST['letter']);
+                    $results = $_POST['model']::letters($results, $_POST['letter']);
                 }
-                $pages = ceil(count($results)/$size);
-                $data = ['results' => paginate($results, $size, $page), 'pages' => $pages, 'query' => $query];
+                $total = count($results);
+                $pages = ceil($total/$size);
+                $data = ['results' => paginate($results, $size, $page), 'pages' => $pages, 'query' => $query, 'total' => $total];
                 break;
             case 'anime_episodes':
                 $data = ($order === 'asc') ? paginate(array_reverse(Cache::fetch($_POST['anime_id'])->getEpisodes()), $size, $page) : paginate(Cache::fetch($_POST['anime_id'])->getEpisodes(), $size, $page);

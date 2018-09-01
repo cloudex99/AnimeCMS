@@ -46,48 +46,6 @@
             return false;
         });
 
-        //Start genres code
-        $('#genres_form').on('submit', function (e) {
-            e.preventDefault();
-
-            loadSpinnerDOM();
-
-            var selected = false;
-            $('#genres_form input:checked').each(function () {
-                selected = true;
-            });
-
-            if (selected) {
-                $("#genres_grid").html("");
-                $('#spinner').show().jmspinner('large');
-            }
-
-            $.ajax({
-                type: "POST",
-                url: '/genres',
-                dataType: "json",
-                data: $(this).serialize(),
-                success: function (data) {
-                    data.forEach(function (anime) {
-                        var add = '<li class="w-25 d-inline-block">\n' +
-                            '         <a href="' + anime.url + '"><img src="' + anime.image + '" class="w-100"></a>\n' +
-                            '         <p><small>' + anime.title + '</small></p>\n' +
-                            '      </li>';
-                        $("#genres_grid").append(add);
-                    });
-                    $('#spinner').hide().jmspinner(false);
-                },
-                statusCode: {
-                    404: function () {
-                        console.log("page not found");
-                    }
-                }
-            });
-            return false;
-
-        });
-        //End genres code
-
         //Start video player code
         var player = $('#player');
         if (player.length) {
@@ -165,11 +123,151 @@
         }
         //End video player code
 
+        //Search Form
+        var sform = $('#search_form');
+        $('#csbtn').on('click', function (e) {
+            e.preventDefault();
+            sform.attr("action", "/search?cartoon=true&term="+$('#search_value').val());
+            window.location.href = sform.attr('action');
+            return false;
+        });
+
+        $("#gcont").click(function(e){
+            e.stopPropagation();
+        });
+
+        //Start anime/cartoon filter code
+        if (onPage === 'animes' || onPage === 'cartoons') {
+
+            var what = 'query';
+            var model = $('input[name=model]').val();
+
+            var anime_grid = $('#anime_grid');
+            var anime_form = $('#anime_filter');
+            var anime_pag = $('.sync-pagination');
+            var loaded = false;
+
+            anime_form.on('submit', function (e) {
+                e.preventDefault();
+                var type = $('#type-selector').val();
+                var status = $('#status-selector').val();
+                var lang = $('#language-selector').val();
+                var order = $('#order-selector').val();
+                var letter = $('#letter-selector').val();
+                var genre = '';
+
+                anime_grid.html("");
+                loadSpinnerDOM();
+                $('#spinner').show().jmspinner('large');
+
+                $("#gcont").find("input[type=checkbox]:checked").each(function () {
+                    genre += $(this).val() + ',';
+                });
+                genre = genre.replace(/,\s*$/, "");
+
+                $.ajax({
+                    type: "POST",
+                    url: '/paginate',
+                    dataType: "json",
+                    data: {
+                        "query": {
+                            "type": type,
+                            "status": status,
+                            "lang": lang,
+                            "order": order,
+                            "genre": genre
+                        },
+                        "what": "query",
+                        "model": model,
+                        "size": anime_pag.attr('data-size'),
+                        "letter": letter
+                    },
+                    success: function (data) {
+                        var pages = data.pages;
+                        anime_pag.attr('data-total', data.total);
+                        anime_pag.attr('data-pages', pages);
+                        anime_pag.attr('data-query', data.query);
+                        data.results.forEach(function (anime) {
+                            anime.english = anime.english || anime.title;
+                            var add = '<li class="w-25 d-inline-block">\n' +
+                                '         <a href="' + anime.url + '"><img src="' + anime.image + '" class="w-100"></a>\n' +
+                                '         <p><small>' + anime.title + '</small></p>\n' +
+                                '      </li>';
+                            $("#anime_grid").append(add);
+                        });
+                        $('#spinner').hide().jmspinner(false);
+                        if (loaded) {
+                            var totalPages = data.pages;
+                            anime_pag.twbsPagination('destroy');
+                            anime_pag.twbsPagination($.extend({}, pagdefaults, {
+                                startPage: 1,
+                                totalPages: totalPages
+                            }));
+
+                        }
+                        loaded = true;
+                    },
+                    statusCode: {
+                        404: function () {
+                            console.log("page not found");
+                        }
+                    }
+                });
+                return false;
+            });
+            anime_form.submit();
+
+            var pagdefaults = {
+                totalPages: anime_pag.attr('data-pages'),
+                visiblePages: 5,
+                initiateStartPageClick: false,
+                next: 'Next',
+                prev: 'Prev',
+                onPageClick: function (event, page) {
+                    var letter = $('#letter-selector').val();
+                    var size = anime_pag.attr('data-size');
+                    var query = anime_pag.attr('data-query');
+                    var send = {
+                        "what": what,
+                        "model": model,
+                        "page": page,
+                        "size": size,
+                        "query": query,
+                        "letter": letter
+                    };
+                    anime_grid.html("");
+                    $('#spinner').show().jmspinner('large');
+                    $.ajax({
+                        type: "POST",
+                        url: '/paginate',
+                        data: send,
+                        success: function (data) {
+                            data.results.forEach(function (anime) {
+                                anime.english = anime.english || anime.title;
+                                var add = '<li class="w-25 d-inline-block">\n' +
+                                    '         <a href="' + anime.url + '"><img src="' + anime.image + '" class="w-100"></a>\n' +
+                                    '         <p><small>' + anime.title + '</small></p>\n' +
+                                    '      </li>';
+                                $("#anime_grid").append(add);
+                            });
+                            $('#spinner').hide().jmspinner(false);
+                        },
+                        statusCode: {
+                            404: function () {
+                                console.log("no data");
+                            }
+                        }
+                    });
+                }
+            };
+            anime_pag.twbsPagination(pagdefaults);
+        }
+        //End anime/cartoon filter code
+
+        function loadSpinnerDOM() {
+            $('<script />', {type: 'text/javascript', src: '/js/jm.spinner.js'}).appendTo('head');
+            $('<link/>', {rel: 'stylesheet', href: '/css/jm.spinner.css'}).appendTo('head');
+        }
     });
 })(jQuery, document, window);
-
-function loadSpinnerDOM() {
-    $('<script />', {type: 'text/javascript', src: '/js/jm.spinner.js'}).appendTo('head');
-    $('<link/>', {rel: 'stylesheet', href: '/css/jm.spinner.css'}).appendTo('head');
-}
 

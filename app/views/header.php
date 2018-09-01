@@ -19,6 +19,9 @@
     <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgo=">
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <script type="text/javascript">
+        var onPage = '<?=PAGE?>';
+    </script>
 </head>
 <body class="bg-dark">
 

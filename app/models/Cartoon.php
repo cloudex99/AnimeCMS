@@ -137,7 +137,15 @@ class Cartoon
             $this->_reversed = false;
         }
     }
-
+    public static function count(){
+        if (Cache::exists('cartoon_count')) {
+            $count = Cache::fetch('cartoon_count');
+        }else{
+            $count = count(Cartoon::query());
+            Cache::save('cartoon_count', $count);
+        }
+        return $count;
+    }
     //Gets a list of cartoon based on a query. Ex: status=ongoing&type=movie
     //Leave blank for full cartoon list
     public static function query($query = null)
@@ -227,6 +235,10 @@ class Cartoon
     //Check https://api.cartoonnetwork.net/genre for list of valid genres
     public static function genres($include = null)
     {
+        if(is_null($include)){
+            return Functions::api_fetch('https://animeapi.com/cartoon/genres');
+        }
+
         return Cartoon::query("genre=$include");
     }
 
