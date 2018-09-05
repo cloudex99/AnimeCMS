@@ -48,9 +48,6 @@
                     <a class="nav-link" href="/anime-movies">Movies</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/genres">Genres</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="/ongoing-anime">Ongoing</a>
                 </li>
                 <li class="nav-item">

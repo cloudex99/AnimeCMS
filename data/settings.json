@@ -51,12 +51,6 @@
             "template_file": "movies.php"
         },
         {
-            "title": "Browse Anime Genres",
-            "desc": "",
-            "base_url": "/genres",
-            "template_file": "genres.php"
-        },
-        {
             "title": "Search Anime",
             "desc": "",
             "base_url": "/search",
