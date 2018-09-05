@@ -152,29 +152,24 @@ abstract class Functions
     }
 
      /**
-      * @param $url
+      * @param $uri
       * @param $decode
       * @return mixed
       * Fetches information from the api.
       */
-     public static function api_fetch($url, $decode = false)
+     public static function api_fetch($uri, $decode = false)
      {
-
          $options = array(
              'http' => array(
                  'method' => 'GET',
                  'timeout' => 1.0
              ),
          );
-
          $context = stream_context_create($options);
-
-         @$result = json_decode(file_get_contents($url, false, $context), $decode);
-
+         $result = json_decode(@file_get_contents(API_URL.$uri, false, $context), $decode);
          if($result != null && $result->status === 'FOUND'){
              return $result->data;
          }
-
          return false;
      }
 

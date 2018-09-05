@@ -20,8 +20,7 @@ class CartoonController extends Controller
             $this->view->render($response, TEMPLATE_BASE . 'cartoon.php', [
                 'cartoon' => $cartoon,
                 'title' => $cartoon->page_title(),
-                'description' => $cartoon->meta_description(),
-                'scripts' => Config::get('cartoon')['scripts']
+                'description' => $cartoon->meta_description()
             ]);
         }else {
             $response = $this->error404($request, $response, $args);
@@ -43,8 +42,7 @@ class CartoonController extends Controller
             $this->view->render($response, TEMPLATE_BASE . 'cartoon-episode.php', [
                 'episode' => $episode,
                 'title' => $episode->page_title(),
-                'description' => $episode->meta_description(),
-                'scripts' => Config::get('cartoon_episode')['scripts']
+                'description' => $episode->meta_description()
             ]);
         } else {
             if (!Cache::exists("404:$slug")) {

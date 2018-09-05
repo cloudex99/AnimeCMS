@@ -56,11 +56,11 @@ class Episode extends Model
         if(isset($params['id']) && $params['id']){
             $id = $params['id'];
             $key = "episode-id:$id";
-            $url = API_URL."/episode/$id";
+            $url = "/episode/$id";
         }elseif(isset($params['slug']) && $params['slug']){
             $slug = Functions::filterSlug($params['slug']);
             $key = "episode-slug:$slug";
-            $url = API_URL."/episode?slug=$slug";
+            $url = "/episode?slug=$slug";
         }else {
             return false;
         }
@@ -281,7 +281,7 @@ class Episode extends Model
         if(Cache::exists($key)){
             $list = Episode::fetch($key);
         }else {
-            $url = API_URL."/latest/episodes/$limit";
+            $url = "/latest/episodes/$limit";
             $list = Functions::api_fetch($url);
             Cache::save($key, $list, RECENT_UPDATE_TIME);
         }
@@ -312,7 +312,7 @@ class Episode extends Model
                 $episodes[] = $episode;
             }
         } else {
-            $url = API_URL."/episode/latest/$limit";
+            $url = "/episode/latest/$limit";
             if ($recent = Functions::api_fetch($url)) {
                 foreach ($recent as $episode) {
                     $episode_ids[] = $episode->id;

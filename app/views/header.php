@@ -42,7 +42,7 @@
                     <a class="nav-link" href="/anime-list">Anime</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/browse-cartoons">Cartoons</a>
+                    <a class="nav-link" href="/cartoon-list">Cartoons</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/anime-movies">Movies</a>

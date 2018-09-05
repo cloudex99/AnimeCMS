@@ -53,13 +53,12 @@ class CartoonEpisode extends Model
     public static function get($id)
     {
         $key = self::$prefix['id'].$id;
-        $url = API_URL."/cartoon/episode/$id";
 
         if(Cache::exists($key)){
             $episode = Cache::fetch($key);
             return $episode;
         }else{
-            if ($data = Functions::api_fetch($url)) {
+            if ($data = Functions::api_fetch("/cartoon/episode/$id")) {
                 $episode = new CartoonEpisode($data);
                 return $episode;
             } else {
@@ -95,9 +94,7 @@ class CartoonEpisode extends Model
     //Call this for the episode name.
     public function name($suffix = false, $short = false)
     {
-
         $cartoon = $this->cartoon();
-
         $type = ucfirst(($cartoon->type == 'tv' ? 'episode' : strtoupper($cartoon->type)));
 
         if ($this->number === null) {
@@ -149,11 +146,28 @@ class CartoonEpisode extends Model
         return $url;
     }
 
+    //gets the latest episodes
+    public static function latest($limit = 60){
+        $key = self::$prefix['list']."latest";
+        $episodes = [];
+        if(Cache::exists($key)){
+            $list = Cache::fetch($key);
+        }else {
+            $list = Functions::api_fetch("/cartoon/latest");
+            Cache::save($key, $list, RECENT_UPDATE_TIME);
+        }
+        $list = array_slice($list->episodes,0,$limit);
+        foreach ($list as $episode){
+            $episodes[] = new CartoonEpisode($episode);
+        }
+        return $episodes;
+    }
+
     public function page_title(){
         return str_replace(
             array("{name}"),
             array($this->name()),
-            Config::get('episode')['title']
+            Config::get('cartoon_episode')['title']
         );
     }
 
@@ -161,7 +175,7 @@ class CartoonEpisode extends Model
         return str_replace(
             array("{name}"),
             array($this->name()),
-            Config::get('episode')['desc']
+            Config::get('cartoon_episode')['desc']
         );
     }
 }

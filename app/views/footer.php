@@ -8,15 +8,9 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 
-    <script type="text/javascript">
-        (function ($, document, window) {
-            $(document).ready(function () {
+<script type='text/javascript' src="/js/controls.js?v=.0001"></script>
+<script type='text/javascript' src="/assets/js/pagination.min.js"></script>
 
-            });
-        })(jQuery, document, window);
-    </script>
-    <script type='text/javascript' src="/js/controls.js?6172"></script>
-    <script type='text/javascript' src="/assets/js/pagination.min.js"></script>
 <footer class="footer">
     <div class="container bg-light text-right">
         <span class="text-muted">©2018 AnimeCMS All Rights Reserved. | Powered by <a href="http://animeapi.com/docs.html">AnimeAPI</a></span>

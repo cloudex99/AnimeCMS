@@ -72,11 +72,11 @@ class Anime extends Model
         if (isset($params['id'])) {
             $id = $params['id'];
             $key = "anime-id:$id";
-            $url = API_URL."/anime/$id";
+            $url = "/anime/$id";
         } elseif (isset($params['slug'])) {
             $slug = Functions::filterSlug($params['slug']);
             $key = "anime-slug:$slug";
-            $url = API_URL."/anime?slug=$slug";
+            $url = "/anime?slug=$slug";
         } else {
             return false;
         }
@@ -162,7 +162,7 @@ class Anime extends Model
             }
         } else {
 
-            $url = API_URL."/anime/$this->id/episodes";
+            $url = "/anime/$this->id/episodes";
             if ($data = Functions::api_fetch($url)) {
                 foreach ($data as $episode) {
                     $episode_ids[] = $episode->id;
@@ -237,7 +237,7 @@ class Anime extends Model
                 }
             }
         } else {
-            $url = API_URL. "/anime?$query";
+            $url =  "/anime?$query";
             if ($list = Functions::api_fetch($url)) {
                 //if we have a query, save the ids as a list
                 if ($has_query) {
@@ -350,7 +350,7 @@ class Anime extends Model
         if (Cache::exists($key)) {
             $list = Anime::fetch($key);
         } else {
-            $url = API_URL."/latest/anime/$limit";
+            $url = "/latest/anime/$limit";
             $list = Functions::api_fetch($url);
             Cache::save($key, $list, RECENT_UPDATE_TIME);
         }
@@ -384,7 +384,7 @@ class Anime extends Model
                     }
                 }
             }else {
-                $url = API_URL."/ongoing";
+                $url = "/ongoing";
                 $list = Functions::api_fetch($url);
                 foreach($list as $data){
                     $id_list[] = $data->id;

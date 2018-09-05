@@ -45,18 +45,15 @@ class Cartoon
         }
     }
 
-
     //Gets the cartoon and stores in cache
     public static function get($id)
     {
         $key = self::$prefix['id'].$id;
-        $url = API_URL."/cartoon/$id";
-
         if(Cache::exists($key)){
             $cartoon = Cache::fetch($key);
             return $cartoon;
         }else{
-            if ($data = Functions::api_fetch($url)) {
+            if ($data = Functions::api_fetch("/cartoon/$id")) {
                 $cartoon = new Cartoon($data);
                 return $cartoon;
             } else {
@@ -108,8 +105,7 @@ class Cartoon
                 }
             }
         } else {
-            $url = API_URL."/cartoon/$this->id/episodes";
-            if ($data = Functions::api_fetch($url)) {
+            if ($data = Functions::api_fetch("/cartoon/$this->id/episodes")) {
                 foreach ($data as $episode) {
                     $episode_ids[] = $episode->id;
                     $episode = new CartoonEpisode($episode);
@@ -175,8 +171,7 @@ class Cartoon
                 }
             }
         } else {
-            $url = API_URL. "/cartoon?$query";
-            if ($list = Functions::api_fetch($url)) {
+            if ($list = Functions::api_fetch("/cartoon?$query")) {
                 //if we have a query, save the ids as a list
                 if ($has_query) {
                     foreach ($list as $data) {
@@ -236,10 +231,27 @@ class Cartoon
     public static function genres($include = null)
     {
         if(is_null($include)){
-            return Functions::api_fetch('https://animeapi.com/cartoon/genres');
+            return Functions::api_fetch('/cartoon/genres');
         }
 
         return Cartoon::query("genre=$include");
+    }
+
+    //gets the latest cartoons
+    public static function latest($limit = 60){
+        $key = self::$prefix['list']."latest";
+        $cartoons = [];
+        if(Cache::exists($key)){
+            $list = Cache::fetch($key);
+        }else {
+            $list = Functions::api_fetch("/cartoon/latest");
+            Cache::save($key, $list, RECENT_UPDATE_TIME);
+        }
+        $list = array_slice($list->cartoons,0,$limit);
+        foreach ($list as $cartoon){
+            $cartoons[] = Cartoon::get($cartoon->id);
+        }
+        return $cartoons;
     }
 
     public function page_title(){

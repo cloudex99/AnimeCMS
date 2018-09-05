@@ -13,12 +13,14 @@
 
                 <div class="col-sm-6">
                     <h6>Subbed</h6>
-                    <?php $subbed = Episode::latest('subbed', 24);?>
                     <ul class="list-unstyled">
                         <?php
-                        foreach ($subbed as $i => $episode){
-                            echo "<li><a href='{$episode->url('subbed')}'>{$episode->name()}</a></li>";
-                        }
+                        (function () {
+                            $episodes = Episode::latest('subbed', 24);
+                            foreach ($episodes as $episode){
+                                echo "<li><a href='{$episode->url('subbed')}'>{$episode->name()}</a></li>";
+                            }
+                        })();
                         ?>
                     </ul>
                 </div>
@@ -27,17 +29,47 @@
                     <h6>Dubbed</h6>
                     <ul class="list-unstyled">
                         <?php
-                        $dubbed = Episode::latest('dubbed', 6);
-                            foreach ($dubbed as $episode){
+                        (function () {
+                            $episodes = Episode::latest('dubbed', 6);
+                            foreach ($episodes as $episode){
                                 echo "<li>
                                         <a href='{$episode->url('dubbed')}' class='d-block'><img src='{$episode->image()}' width='300'></a>
                                         <p><small>{$episode->name()}</small></p>
                                       </li>";
                             }
+                        })();
+                        ?>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <h6>Latest Cartoons</h6>
+                    <ul class="list-unstyled">
+                        <?php
+                        (function () {
+                            $cartoons = Cartoon::latest( 12);
+                            foreach ($cartoons as $cartoon){
+                                echo "<li><a href='{$cartoon->url()}'>{$cartoon->name()}</a></li>";
+                            }
+                        })();
                         ?>
                     </ul>
                 </div>
 
+                <div class="col-sm-6">
+                    <h6>Recent Cartoon Episodes</h6>
+                    <ul class="list-unstyled">
+                        <?php
+                        (function () {
+                            $episodes = CartoonEpisode::latest( 12);
+                            foreach ($episodes as $episode){
+                                echo "<li><a href='{$episode->url()}'>{$episode->name()}</a></li>";
+                            }
+                        })();
+                        ?>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

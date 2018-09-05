@@ -57,7 +57,10 @@ class Cache
     }
 
     public static function delete(String $key){
-        $key = CACHE_PREFIX.$key;
+        if(substr( $key, 0, strlen(CACHE_PREFIX) ) !== CACHE_PREFIX){
+            $key = CACHE_PREFIX.$key;
+        }
+        echo "deleting $key<br>";
         if(CACHE_MODE === 'memcached'){
             return self::memcached()->delete($key);
         } elseif(CACHE_MODE === 'redis'){
@@ -78,8 +81,9 @@ class Cache
         }
     }
 
-    public static function clearPrefix($prefix){
+    public static function clearPrefix(String $prefix){
         $prefix = CACHE_PREFIX.$prefix;
+        echo "clearing $prefix<br>";
 
         if(CACHE_MODE === 'memcached'){
             $keys = self::memcached()->getAllKeys();
