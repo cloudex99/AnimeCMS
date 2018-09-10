@@ -97,19 +97,13 @@ class Cartoon
         if (Cache::exists($key)) {
             $episode_ids = Cache::fetch($key);
             foreach ($episode_ids as $episode_id) {
-                $episode = CartoonEpisode::get($episode_id);
-                if(DUBBED_ONLY && $episode->hasDubbed()){
-                    $episodes[] = $episode;
-                } else {
-                    $episodes[] = $episode;
-                }
+                $episodes[] = CartoonEpisode::get($episode_id);
             }
         } else {
             if ($data = Functions::api_fetch("/cartoon/$this->id/episodes")) {
                 foreach ($data as $episode) {
                     $episode_ids[] = $episode->id;
-                    $episode = new CartoonEpisode($episode);
-                    $episodes[] = $episode;
+                    $episodes[] = new CartoonEpisode($episode);
                 }
                 if($this->status === 'ongoing'){
                     Cache::save($key, $episode_ids, DEFAULT_EXPIRE_TIME);
