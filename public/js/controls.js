@@ -265,8 +265,8 @@
         //End anime/cartoon filter code
 
         function loadSpinnerDOM() {
-            $('<script />', {type: 'text/javascript', src: '/js/jm.spinner.js'}).appendTo('head');
-            $('<link/>', {rel: 'stylesheet', href: '/css/jm.spinner.css'}).appendTo('head');
+            $('<script />', {type: 'text/javascript', src: '/assets/js/jm.spinner.js'}).appendTo('head');
+            $('<link/>', {rel: 'stylesheet', href: '/assets/css/jm.spinner.css'}).appendTo('head');
         }
     });
 })(jQuery, document, window);
