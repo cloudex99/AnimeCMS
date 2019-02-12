@@ -16,7 +16,7 @@ const API_KEY = '5af6d169-c508-48bd-8f70-02d3c38b206b';
 
 const CACHE_PREFIX = 'cms_'; //cache prefix for different sites that are hosted on same server. keep short.
 
-const CACHE_MODE = 'redis'; //apcu or memcached or redis
+const CACHE_MODE = 'apcu'; //apcu or memcached or redis
 
 const DEFAULT_EXPIRE_TIME = 3600*24; // 1 day. Do not set to less than 1 day.
 const RECENT_UPDATE_TIME = 3600*3; //4 Hours. How often to fetch recent episodes/anime

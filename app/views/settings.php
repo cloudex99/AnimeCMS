@@ -19,12 +19,10 @@
                 $placeholder = '';
                 $readonly = '';
                 if ($key === 'admin_password' || $key === 'admin_username')
-                    continue;
-                /*
                     $type = 'password';
                 if ($key === 'admin_username')
                     $readonly = 'readonly';
-                */
+
                 $input = "<input type='text' class='form-control form-control-sm' placeholder='$key' type='$type' name=$key value='$value' $readonly>";
                 if ($key === 'desc') {
                     $input = "<textarea name=$key class='form-control form-control-sm' placeholder='$key'>$value</textarea>";

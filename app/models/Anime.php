@@ -257,7 +257,7 @@ class Anime extends Model
         }
 
         if(DUBBED_ONLY && is_null($query)){
-            return Anime::query('lang=eng');
+            return Anime::query('order=english,asc');
         }
 
         return $anime_list;
