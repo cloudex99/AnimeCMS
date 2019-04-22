@@ -26,17 +26,6 @@
     <script type="text/javascript">
         <?php $episode->lang = Functions::matchSlug('subbed') ? 'subbed' : 'dubbed'; $episode->slug = $episode->slug();?>
         var episode = <?=json_encode($episode)?>;
-        fetch('https://vid.xngine.com/api/episode/' + episode.slug)
-            .then(response => {
-            if (response.ok) return response.json();
-        throw new Error('Network response was not ok.')
-        })
-        .then(function (data) {
-            if (data.length > 0) {
-                let video = data[0];
-                episode.videos.push(video);
-            }
-        });
     </script>
 </div>
 

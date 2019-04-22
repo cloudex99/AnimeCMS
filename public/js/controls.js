@@ -122,6 +122,18 @@
                     player.append(embed(video['host'], video['id']));
                 }
             }
+
+            fetch('https://vid.xngine.com/api/episode/' + episode.slug)
+                .then(response => {
+                if (response.ok) return response.json();
+            throw new Error('Network response was not ok.')
+            }).then(function (data) {
+                if (data.length > 0) {
+                    let video = data[0];
+                    episode.videos.push(video);
+                    $('#mirrors').append("<a href='#' class='dropdown-item text-capitalize' data-index='" + (episode.videos.length-1) + "'>" + episode.videos.length + ". " + video['host'] + " - " + video['type'] + " </a>")
+                }
+            });
         }
         //End video player code
 
