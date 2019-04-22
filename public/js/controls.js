@@ -63,6 +63,8 @@
                     code = "<iframe " + no_disp + " src='//trollvid.net/embedc/" + id + "' frameborder='0' allowfullscreen='true' scrolling='no'></iframe>";
                 } else if (host === 'mp4upload') {
                     code = "<iframe " + no_disp + " src='//www.mp4upload.com/embed-" + id + ".html' FRAMEBORDER=0 MARGINWIDTH=0 MARGINHEIGHT=0 SCROLLING=NO WIDTH=1280 HEIGHT=720 allowfullscreen></iframe>";
+                } else if (host === 'vidstreaming') {
+                    code = '<iframe ' + no_disp + ' src="//vidstreaming.io/streaming.php?id='+ id +'" allowfullscreen="true" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>';
                 } else if (host === 'facebook') {
                     code = "<iframe " + no_disp + " src='https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Flayfon.alseif.16%2Fvideos%2F" + id + "%2F' frameborder='0' allowfullscreen='true' scrolling='no'></iframe>"
                 } else if (host === 'upload2') {
@@ -74,18 +76,18 @@
                 return code;
             };
 
-            episode_videos.forEach(function (video, i) {
+            episode.videos.forEach(function (video, i) {
                 $('#mirrors').append("<a href='#' class='dropdown-item text-capitalize' data-index='" + i + "'>" + (++i) + ". " + video['host'] + " - " + video['type'] + " </a>");
             });
 
             setTimeout(function () {
-                display_video(episode_videos[0]);
+                display_video(episode.videos[0]);
             }, 500);
 
             $('#mirrors').on('click', 'a', function () {
                 $('#parts').html('');
                 $('#refresh').attr("data-index", $(this).attr("data-index"));
-                display_video(episode_videos[$(this).attr("data-index")]);
+                display_video(episode.videos[$(this).attr("data-index")]);
             });
 
             $('#parts').on('click', 'a', function () {
@@ -103,7 +105,7 @@
             });
 
             $('#refresh').click(function () {
-                display_video(episode_videos[$(this).attr("data-index")]);
+                display_video(episode.videos[$(this).attr("data-index")]);
             });
 
             function display_video(video) {

@@ -193,6 +193,11 @@ class Episode extends Model
         return $image;
     }
 
+    public function slug(){
+        $lang = (Functions::getSuffix() === '-english-dubbed') ? '-dub' : '';
+        return Functions::slugify($this->anime()->title.$lang." episode ".($this->number ?? '-1'));
+    }
+
     //What type of episode to show
     public function setEpisodeType($type)
     {

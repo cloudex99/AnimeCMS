@@ -24,22 +24,19 @@
         </div>
     </div>
     <script type="text/javascript">
-        var episode_videos = <?php echo json_encode($episode->videos)?>;
-
-        // addEventListener support for IE8
-        function bindEvent(element, eventName, eventHandler) {
-            if (element.addEventListener){
-                element.addEventListener(eventName, eventHandler, false);
-            } else if (element.attachEvent) {
-                element.attachEvent('on' + eventName, eventHandler);
+        <?php $episode->lang = Functions::matchSlug('subbed') ? 'subbed' : 'dubbed'; $episode->slug = $episode->slug();?>
+        var episode = <?=json_encode($episode)?>;
+        fetch('https://vid.xngine.com/api/episode/' + episode.slug)
+            .then(response => {
+            if (response.ok) return response.json();
+        throw new Error('Network response was not ok.')
+        })
+        .then(function (data) {
+            if (data.length > 0) {
+                let video = data[0];
+                episode.videos.push(video);
             }
-        }
-
-        // Listen to message from child window
-        bindEvent(window, 'message', function (e) {
-            console.log(e.data);
         });
-
     </script>
 </div>
 
