@@ -63,6 +63,8 @@
                     code = "<iframe " + no_disp + " src='//trollvid.net/embedc/" + id + "' frameborder='0' allowfullscreen='true' scrolling='no'></iframe>";
                 } else if (host === 'mp4upload') {
                     code = "<iframe " + no_disp + " src='//www.mp4upload.com/embed-" + id + ".html' FRAMEBORDER=0 MARGINWIDTH=0 MARGINHEIGHT=0 SCROLLING=NO WIDTH=1280 HEIGHT=720 allowfullscreen></iframe>";
+                } else if (host === 'xstreamcdn') {
+                    code = '<iframe ' + no_disp + ' src="https://www.xstreamcdn.com/v/'+ id +'" allowfullscreen="true" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>';
                 } else if (host === 'vidstreaming') {
                     code = '<iframe ' + no_disp + ' src="//vidstreaming.io/streaming.php?id='+ id +'" allowfullscreen="true" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>';
                 } else if (host === 'facebook') {

@@ -8,7 +8,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 
-<script type='text/javascript' src="/js/controls.js?v=.0004"></script>
+<script type='text/javascript' src="/js/controls.js?v=.0005"></script>
 <script type='text/javascript' src="/assets/js/pagination.min.js"></script>
 
 <footer class="footer">
