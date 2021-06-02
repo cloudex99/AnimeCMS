@@ -1,4 +1,4 @@
-# AnimeCMS
+# AnimeSite
 
 #### A work in progress
 
